@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" data-provider-thread-count="3">
+  <test name="Test">
+	<listeners>
+		<listener class-name="selenium.ListenerTest"/>
+	</listeners>
+    <classes>
+      <class name="selenium.Testing1"/>
+       <class name="selenium.testing2"/>
+        <class name="selenium.testing3"/>
+    </classes>
+	
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
