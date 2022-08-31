@@ -1,21 +1,22 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
-
-
 version: 2.1
 orbs:
-  aws-cli: circleci/aws-cli@2.0
+  aws-cli: circleci/aws-cli@3.1
 jobs:
-  aws-cli-cred-setup:
+  configure-role-arn:
     executor: aws-cli/default
     steps:
+      - checkout
       - aws-cli/setup:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access_key: AWS_SECRET_ACCESS_KEY
-          aws-session-token: AWS_SESSION_TOKEN
-          
+          profile-name: default
+      - aws-cli/role-arn-setup:
+          profile-name: new-profile
+          role-arn: 'arn:aws:iam::123456789012:role/example-role'
+          source-profile: default
+      - run: >-
+          aws sts assume-role --role-arn
+          "arn:aws:iam::123456789012:role/example-role" --role-session-name
+          AWSCLI-Session
 workflows:
   aws-cli:
     jobs:
-      - aws-cli-cred-setup:
-          context: aws
+      - configure-role-arn
