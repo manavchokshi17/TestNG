@@ -8,10 +8,9 @@ jobs:
       - checkout
       - aws-cli/setup:
           profile-name: default
-       
+      
       
 workflows:
   aws-cli:
     jobs:
-      - aws-cli-cred-setup:
-          context: aws
+      - configure-role-arn
