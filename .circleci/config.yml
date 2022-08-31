@@ -8,15 +8,10 @@ jobs:
       - checkout
       - aws-cli/setup:
           profile-name: default
-      - aws-cli/role-arn-setup:
-          profile-name: new-profile
-          role-arn: 'arn:aws:iam::339146391262:user/SIS-smtp-user'
-          source-profile: default
-      - run: >-
-          aws sts assume-role --role-arn
-          "arn:aws:iam::339146391262:user/SIS-smtp-user" --role-session-name
-          AWSCLI-Session
+       
+      
 workflows:
   aws-cli:
     jobs:
-      - configure-role-arn
+      - aws-cli-cred-setup:
+          context: aws
